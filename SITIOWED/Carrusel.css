@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: url('Imagenes/R.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgba(164, 179, 192, 0.9);
+    border-radius: 10px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header img {
+    vertical-align: middle;
+    margin: 0 10px;
+}
+
+.main-content {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.carrusel {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.carrusel-caja {
+    display: flex;
+    gap: 10px;
+}
+
+.carrusel-elemento img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+}

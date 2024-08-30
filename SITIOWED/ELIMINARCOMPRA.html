@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('Imagenes/CANCHA.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 21px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+            text-align: center; /* Centra el contenido dentro de la caja */
+        }
+        .container h2 {
+            margin-bottom: 20px;
+        }
+        .container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .container input[type="text"], .container input[type="submit"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center; /* Centra el texto dentro de los inputs */
+        }
+        .container input[type="submit"] {
+            background: #5cb85c;
+            color: #fff;
+            cursor: pointer;
+        }
+        .container input[type="submit"]:hover {
+            background: #4cae4c;
+        }
+        .container .regresar {
+            background: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 84%;
+            margin-top: 10px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .container .regresar:hover {
+            background: #0056b3;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0;
+            animation: fall linear infinite;
+            opacity: 0.7;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Buscar Compra</h2>
+    <form action="ELIMINACIONCOMPRA.php" method="POST">
+        <label for="id">ID de la Compra:</label>
+        <input type="text" name="id" id="id" required>
+        <input type="submit" value="Buscar">
+        <a href="index.html" class="regresar">Regresar</a>
+    </form>
+</div>
+
+<script>
+    const confettiColors = ['#ff0', '#0ff', '#f0f', '#f00', '#0f0', '#00f'];
+    function createConfetti() {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDuration = Math.random() * 2 + 3 + 's';
+        confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+    }
+    setInterval(createConfetti, 200);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('Imagenes/milky-way-2695569_1280.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(113, 119, 172, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .productos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .producto {
+            width: 30%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #020202;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .producto img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-agregar {
+            background-color: #5e5656;
+            color: white;
+            padding: 10px 50px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .btn-agregar:hover {
+            background-color: #6d6a6a;
+        }
+
+        .carrito {
+            background-color: #464785;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(252, 252, 252);
+        }
+
+        .btn-comprar {
+            background-color: #888;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-comprar:hover {
+            background-color: #646464;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Carrito de Compras</h1>
+
+        <div class="productos">
+            <div class="producto">
+                <img src="Imagenes/balon brazil.jpeg" alt="Producto 1">
+                <h2>Balon de futbol Mundial Brazil 2014</h2>
+                <p>Precio: L. 3,500 </p>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Balon de futbol Mundial Brazil 2014', 3500)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="Imagenes/tacos.jpeg" alt="Producto 2">
+                <h2>Nike Mercurial Superfly VI 360 Elite FG</h2>
+                <p>Precio: L. 4,500</p>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Nike Mercurial Superfly VI 360 Elite FG', 4500)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="Imagenes/Intermiami.jpeg" width="950" alt="Producto 3">
+                <h2>Camisa Visitante Intermiami</h2>
+                <p>Precio: L. 4,000</p>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Camiseta Visitante Intermiami', 4000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="Imagenes/FRANCIA2023.jpeg" alt="Producto 4">
+                <h2>Camisa Exclusiva Francia 2023</h2>
+                <p>Precio: L. 3,500</p>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Camiseta Exclusiva Francia 2023', 3500)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="Imagenes/Manchestecitysese.jpeg" alt="Producto 5">
+                <h2>Camisa Exclusiva del Manchester City</h2>
+                <p>Precio: L. 5,000</p>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Camisa Exclusiva del Manchester City', 5000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="Imagenes/portero.jpg" alt="Producto 6">
+                <h2>Guantes de portero</h2>
+                <p>Precio: L.3,500</p>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Guantes de portero ', 3500)">Agregar al carrito</button>
+            </div>
+        </div>
+
+        <h2>Tu Carrito</h2>
+        <div class="carrito">
+            <ul id="lista-carrito"></ul>
+            <center><p id="total">Total: L.0</p>
+            <button class="btn-comprar" onclick="finalizarCompra()">Finalizar compra</button>
+        </div>
+    </div>
+
+    <script>
+        let carrito = [];
+        let total = 0;
+
+        function agregarAlCarrito(producto, precio) {
+            carrito.push({ producto, precio });
+            total += precio;
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const listaCarrito = document.getElementById('lista-carrito');
+            listaCarrito.innerHTML = '';
+            carrito.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.producto} - L.${item.precio}`;
+                listaCarrito.appendChild(li);
+            });
+            document.getElementById('total').textContent = `Total: L.${total}`;
+        }
+
+        function finalizarCompra() {
+            alert(`Compra finalizada. Total a pagar: L.${total}`);
+            carrito = [];
+            total = 0;
+            actualizarCarrito();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar y Editar Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000; /* Fondo de color oscuro mientras se carga el video */
+            overflow: hidden; /* Evitar scroll */
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cubrir todo el área del fondo */
+            z-index: -1; /* Colocar el video detrás del contenido */
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1; /* Asegurar que el contenido esté sobre el video */
+        }
+        .container input[type="number"] {
+            width: 92%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container input[type="submit"] {
+            background: #5cb85c;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .container input[type="submit"]:hover {
+            background: #4cae4c;
+        }
+        .container .regresar {
+            background: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 92%;
+            margin-top: 10px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .container .regresar:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<video autoplay muted loop>
+    <source src="Imagenes/carlos.mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+</video>
+
+<div class="container">
+    <h2>Buscar Registro por ID</h2>
+    <form action="EDITARCOMPRA.php" method="POST">
+        <label for="id"><center>ID del Registro:</center></label>
+        <input type="number" name="id" id="id" required>
+        <input type="submit" value="Buscar">
+    </form>
+    <a href="index.html" class="regresar">Regresar</a>
+</div>
+
+</body>
+</html>

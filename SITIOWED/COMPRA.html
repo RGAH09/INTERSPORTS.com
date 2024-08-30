@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background-image: url('Imagenes/R.jpeg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9); 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            width: 500px;
+            color: black;
+        }
+        table {
+            width: 100%;
+            margin: 0 auto;
+        }
+        td {
+            padding: 10px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="submit"], input[type="reset"], input[type="button"] {
+            background-color: #444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
+            background-color: #333;
+        }
+        #nombreNumero {
+            width: 100%;
+            visibility: hidden;
+        }
+        #preview {
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+            display: none;
+            background-color: #fff;
+            max-height: 150px;
+        }
+        #imageWarning {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+    <script>
+        function calcularPrecio() {
+            var tipoCamisa = document.querySelector("input[name='tipo_camisa']:checked").value.toLowerCase();
+            var precio = 0;
+
+            switch (tipoCamisa) {
+                case "original":
+                    precio = 2000;
+                    break;
+                case "retro":
+                    precio = 1700;
+                    break;
+                case "aficionado":
+                    precio = 1200;
+                    break;
+                default:
+                    alert("Tipo de camisa no reconocido. Por favor, seleccione 'Original', 'Retro' o 'Aficionado'.");
+                    return;
+            }
+
+            document.getElementById("precio").value = precio;
+        }
+
+        function togglePersonalizar() {
+            var personalizar = document.getElementById("personalizar").value;
+            var nombreNumero = document.getElementById("nombreNumero");
+            nombreNumero.style.visibility = personalizar === "Sí" ? "visible" : "hidden";
+        }
+
+        function previewImage(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            
+            reader.onload = function() {
+                var output = document.getElementById('preview');
+                var img = new Image();
+                
+                img.src = reader.result;
+                
+                img.onload = function() {
+                    if (img.width > 800 || img.height > 800) {
+                        document.getElementById('imageWarning').style.display = 'block';
+                        document.getElementById('imagen').value = ""; // Reset the file input
+                        output.style.display = 'none';
+                    } else {
+                        output.src = reader.result;
+                        output.style.display = 'block';
+                        document.getElementById('imageWarning').style.display = 'none';
+                    }
+                };
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        function setImageFromURL() {
+            var url = document.getElementById("image_url").value;
+            var output = document.getElementById('preview');
+            var img = new Image();
+            
+            img.src = url;
+            
+            img.onload = function() {
+                if (img.width > 800 || img.height > 800) {
+                    document.getElementById('imageWarning').style.display = 'block';
+                    document.getElementById('image_url').value = ""; // Reset the URL input
+                    output.style.display = 'none';
+                } else {
+                    output.src = url;
+                    output.style.display = 'block';
+                    document.getElementById('imageWarning').style.display = 'none';
+                }
+            };
+        }
+
+        function resetForm() {
+            document.getElementById('preview').style.display = 'none'; 
+            document.getElementById('imageWarning').style.display = 'none'; 
+            document.getElementById('nombreNumero').style.visibility = 'hidden'; 
+            document.getElementById('personalizar').value = "No"; 
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <form action="SPINSERTAR.php" method="POST" enctype="multipart/form-data" onreset="resetForm()">
+            <table>
+                <tr>
+                    <td colspan="2"><center><strong>Ingresar Tu Compra</strong></center></td>
+                </tr>
+                <tr>
+                    <td>Nombre del Cliente:</td>
+                    <td><input type="text" name="nombre_cliente" required></td>
+                </tr>
+                <tr>
+                    <td>Equipo o Selección:</td>
+                    <td><input type="text" name="equipo_seleccion" required></td>
+                </tr>
+                <tr>
+                    <td>Imagen (Subir archivo o URL):</td>
+                    <td>
+                        <input type="file" name="imagen" id="imagen" accept="image/*" onchange="previewImage(event)">
+                        <br>
+                        <label>O ingrese URL de la imagen:</label>
+                        <input type="text" id="image_url" placeholder="URL de la imagen" oninput="setImageFromURL()">
+                        <br>
+                        <img id="preview" src="#" alt="Vista previa de la imagen"/>
+                        <div id="imageWarning">La imagen es muy grande, elija otra por favor.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tipo de Camisa:</td>
+                    <td>
+                        <label><input type="radio" name="tipo_camisa" value="Original" onchange="calcularPrecio()" required> Original</label><br>
+                        <label><input type="radio" name="tipo_camisa" value="Retro" onchange="calcularPrecio()" required> Retro</label><br>
+                        <label><input type="radio" name="tipo_camisa" value="Aficionado" onchange="calcularPrecio()" required> Aficionado</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>¿Personalizar?</td>
+                    <td>
+                        <select name="personalizar" id="personalizar" onchange="togglePersonalizar()">
+                            <option value="No">No</option>
+                            <option value="Sí">Sí</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="nombreNumero">
+                    <td>Nombre y Número:</td>
+                    <td><input type="text" name="nombre_numero"></td>
+                </tr>
+                <tr>
+                    <td>Talla:</td>
+                    <td>
+                        <label><input type="radio" name="talla" value="S" required> S</label><br>
+                        <label><input type="radio" name="talla" value="M" required> M</label><br>
+                        <label><input type="radio" name="talla" value="L" required> L</label><br>
+                        <label><input type="radio" name="talla" value="XL" required> XL</label><br>
+                        <label><input type="radio" name="talla" value="XXL" required> XXL</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Guardar"></td>
+                    <td><input type="reset" value="Limpiar"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <center><input type="button" value="Consultar Compras" onclick="location.href='BUSQUEDA.html'"></center>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="precio" id="precio">
+        </form>
+    </div>
+</body>
+</html>
